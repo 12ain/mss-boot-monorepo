@@ -1,0 +1,456 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "generator接口文档",
+        "title": "generator API",
+        "contact": {},
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/generator/api/v1/github/create-or-update": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "创建或更新github配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "generator"
+                ],
+                "summary": "创建或更新github配置",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/form.GithubCreateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/generator/api/v1/github/get": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取github配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "generator"
+                ],
+                "summary": "获取github配置",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/form.GithubGetResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/generator/api/v1/template/generate": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "从模版生成代码",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "generator"
+                ],
+                "summary": "从模版生成代码",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/form.TemplateGenerateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/form.TemplateGenerateResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/generator/api/v1/template/get-branches": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取template分支",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "generator"
+                ],
+                "summary": "获取template分支",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "template source",
+                        "name": "source",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/form.TemplateGetBranchesResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/generator/api/v1/template/get-params": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取template参数配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "generator"
+                ],
+                "summary": "获取template参数配置",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "template source",
+                        "name": "source",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "branch default:HEAD",
+                        "name": "branch",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "path default:.",
+                        "name": "path",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/form.TemplateGetParamsResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/generator/api/v1/template/get-path": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取template文件路径list",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "generator"
+                ],
+                "summary": "获取template文件路径list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "template source",
+                        "name": "source",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "branch default:HEAD",
+                        "name": "branch",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/form.TemplateGetPathResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "form.GenerateParams": {
+            "type": "object",
+            "required": [
+                "repo"
+            ],
+            "properties": {
+                "params": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "repo": {
+                    "type": "string"
+                },
+                "service": {
+                    "type": "string"
+                }
+            }
+        },
+        "form.GithubCreateReq": {
+            "type": "object",
+            "required": [
+                "password"
+            ],
+            "properties": {
+                "password": {
+                    "description": "github密码或者token",
+                    "type": "string"
+                }
+            }
+        },
+        "form.GithubGetResp": {
+            "type": "object",
+            "properties": {
+                "configured": {
+                    "description": "已配置",
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "github邮箱",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "form.TemplateGenerateReq": {
+            "type": "object",
+            "properties": {
+                "generate": {
+                    "$ref": "#/definitions/form.GenerateParams"
+                },
+                "template": {
+                    "$ref": "#/definitions/form.TemplateParams"
+                }
+            }
+        },
+        "form.TemplateGenerateResp": {
+            "type": "object",
+            "properties": {
+                "branch": {
+                    "type": "string"
+                },
+                "repo": {
+                    "type": "string"
+                }
+            }
+        },
+        "form.TemplateGetBranchesResp": {
+            "type": "object",
+            "properties": {
+                "branches": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "form.TemplateGetParamsResp": {
+            "type": "object",
+            "properties": {
+                "params": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/form.TemplateParam"
+                    }
+                }
+            }
+        },
+        "form.TemplateGetPathResp": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "form.TemplateParam": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "tip": {
+                    "type": "string"
+                }
+            }
+        },
+        "form.TemplateParams": {
+            "type": "object",
+            "required": [
+                "source"
+            ],
+            "properties": {
+                "branch": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.Response": {
+            "type": "object",
+            "properties": {
+                "errorCode": {
+                    "type": "string"
+                },
+                "errorMessage": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "showType": {
+                    "type": "integer"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "traceId": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
